@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask Anil Bhau 🤖</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #eef2f7;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-box {
+      width: 380px;
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .header {
+      background: #1e40af;
+      color: #ffffff;
+      padding: 14px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .messages {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      background: #f9fafb;
+    }
+
+    .msg {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .user {
+      background: #2563eb;
+      color: white;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .bot {
+      background: #e5e7eb;
+      color: #111827;
+      margin-right: auto;
+    }
+
+    .input-box {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #e5e7eb;
+      gap: 8px;
+    }
+
+    .input-box input {
+      flex: 1;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 14px;
+    }
+
+    .input-box button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      background: #1e40af;
+      color: #ffffff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .input-box button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="chat-box">
+    <div class="header">Ask Anil Bhau 🤖</div>
+
+    <div class="messages" id="chat">
+      <div class="msg bot">
+        Hello! I’m Anil Bhau. You can ask me about Nexthink, alerts, dashboards, or performance issues.
+      </div>
+    </div>
+
+    <div class="input-box">
+      <input type="text" id="userInput" placeholder="Type your question..." autocomplete="off">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function getBotReply(message) {
+      const msg = message.toLowerCase();
+
+      if (msg.includes("hi") || msg.includes("hello")) {
+        return "Hello! How can I help you today?";
+      }
+      if (msg.includes("nexthink")) {
+        return "Please share the device name. I will help you check it in Nexthink.";
+      }
+      if (msg.includes("alert")) {
+        return "Nexthink alerts help detect performance issues before they impact users.";
+      }
+      if (msg.includes("dashboard")) {
+        return "Navigate to Nexthink → Live Dashboards → Select the relevant use case.";
+      }
+      if (msg.includes("slow") || msg.includes("performance")) {
+        return "Please share the device name to analyze CPU, memory, and disk usage.";
+      }
+      if (msg.includes("thanks")) {
+        return "You're welcome! Happy to help 😊";
+      }
+
+      return "Can you please provide more details so I can assist you better?";
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const chat = document.getElementById("chat");
+      const message = input.value.trim();
+
+      if (message === "") return;
+
+      const userMsg = document.createElement("div");
+      userMsg.className = "msg user";
+      userMsg.textContent = message;
+      chat.appendChild(userMsg);
+
+      const botMsg = document.createElement("div");
+      botMsg.className = "msg bot";
+      botMsg.textContent = getBotReply(message);
+      chat.appendChild(botMsg);
+
+      input.value = "";
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    document.getElementById("userInput").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
+  </script>
+
+</body>
+</html>
